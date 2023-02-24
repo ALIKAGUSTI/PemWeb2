@@ -1,2 +1,2 @@
 <?php
-echo "Nama file :",$_SERVER{PHP_SELF};
+echo "Nama file :",$_SERVER[PHP_SELF];
