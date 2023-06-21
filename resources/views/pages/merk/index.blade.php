@@ -21,16 +21,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                          @foreach($merkData as $merk)
-                          <tr>
-                                <td>{{ $loop->iteration}}</td>
-                                <td>{{ $merk->merk}}</td>
-                                <td>
-                                    <a href="/merk/edit/{{ $merk->id}}" class="btn btn-success">Edit</a>
-                                    <a href="/merk/delete/{{ $merk->id }}" class="btn btn-warning">Delete</a>
-                                </td>
-                          </tr>
-                          @endforeach
+                            @foreach ($merkData as $merk)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $merk->merk }}</td>
+                                    <td>
+                                        <a href="/merk/edit/{{ $merk->id }}" class="btn btn-warning">Edit</a>
+                                        <a href="/merk/delete/{{ $merk->id }}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

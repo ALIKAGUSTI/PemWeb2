@@ -2,54 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipeMobil;
 use Illuminate\Http\Request;
+use App\Models\TipeMobil;
 
 class TipeMobilController extends Controller
 {
-    function index() 
-    {
-        $tipeMobil = TipeMobil::get();
-        return view('pages.tipe.index',['tipeMobil'=>$tipeMobil]);
+    function index(){
+        $merkData = TipeMobil::get();
+        return view('pages.tipe_mobil.index', ['merkData'=>$merkData]);
     }
-     function create()
-    {
-        return view('pages.tipe.create');
+
+    function create(){
+        return view('pages.tipe_mobil.create');
     }
-    function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'merek' => 'required',
-            'tahun' => 'required|numeric'
-        ]);
 
-        TipeMobil::create($request->all());
+    function store(Request $request) {
+        $merkData = new TipeMobil;
+        $merkData->tipe = $request->tipe;
+        $merkData->save();
 
-        return redirect()->route('tipe.index')->with('success', 'Tipe mobil berhasil ditambahkan.');
+        return redirect('/tipe_mobil');
     }
-    function edit(TipeMobil $tipeMobil)
-    {
-        return view('pages.tipe.edit', ['tipeMobil' => $tipeMobil]);
+
+    function edit($id){
+        $merkData = TipeMobil::find($id);
+       return view('pages.tipe_mobil.edit', ['merkData'=> $merkData]);
     }
-    function update(Request $request, TipeMobil $tipeMobil)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'merek' => 'required',
-            'tahun' => 'required|numeric'
-        ]);
 
-        $tipeMobil->update($request->all());
+    function update($id, Request $request){
+        $merkData = TipeMobil::find($id);
+        $merkData->tipe = $request->tipe;
+        $merkData->save();
 
-        return redirect()->route('tipe.index')->with('success', 'Tipe mobil berhasil diperbarui.');
+        return redirect()->to('/tipe_mobil')->with('success', 'data berhasil diupdate');
+
     }
-    function destroy(TipeMobil $tipeMobil)
-    {
-        $tipeMobil->delete();
 
-        return redirect()->route('tipe.index')->with('success', 'Tipe mobil berhasil dihapus.');
+    function delete($id, Request $request){
+        $merkData = TipeMobil::find($id);
+        $merkData->delete();
+
+        return redirect()->to('/tipe_mobil')->with('success', 'data berhasil dihapus');
+
     }
 }
-
-
