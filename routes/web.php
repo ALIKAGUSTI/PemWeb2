@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/greeting', function (){
+    return view('greeting');
+});
+
+Route::middleware(['auth'])->group( function() {
 
 Route::get('/mobil',[MobilController::class,'index']);
 Route::get('/mobil/create',[MobilController::class,'create']); //memangil form
@@ -39,3 +44,11 @@ Route::post('/tipe_mobil/simpan-data', [TipeMobilController::class, 'store']);
 Route::get('/tipe_mobil/edit/{id}', [TipeMobilController::class, 'edit']); //edit data
 Route::post('/tipe_mobil/update/{id}', [TipeMobilController::class, 'update']);
 Route::get('/tipe_mobil/delete/{id}', [TipeMobilController::class, 'delete']);
+
+Route::get('//logout',[Auth\LoginController::class,'index']);
+});
+
+Route::post('/login/proses',[Auth\LoginController::class,'login'])->name('login');
+Route::get('/login',[Auth\LoginController::class,'index']);
+Route::get('/register',[Auth\RegisterController::class,'index']);
+Route::post('/register/proses',[Auth\RegisterController::class,'register']);
